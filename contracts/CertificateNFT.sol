@@ -78,14 +78,12 @@ contract CertificateNFT is ERC721, AccessControl {
             _holderTokens[to].add(tokenId);
         }
 
-        return super._update(to, tokenId, auth);
-    }
+        if (to == address(0)) {
+            delete _certificateData[tokenId];
+            delete _tokenURIs[tokenId];
+        }
 
-    /// Xoá dữ liệu chứng chỉ và URI khi burn
-    function _burn(uint256 tokenId) internal virtual override {
-        super._burn(tokenId);
-        delete _certificateData[tokenId];
-        delete _tokenURIs[tokenId];
+        return super._update(to, tokenId, auth);
     }
 
     /// Lấy toàn bộ chứng chỉ của một địa chỉ
