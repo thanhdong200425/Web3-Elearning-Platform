@@ -1,0 +1,39 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_24-121cb0f0e0b01955e676600d39b98f41baf00cf6",
+  "solcVersion": "0.8.24",
+  "solcLongVersion": "0.8.24+commit.e11b9ed9",
+  "userSourceNameMap": {
+    "contracts/ElearningPlatform.sol": "project/contracts/ElearningPlatform.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "shanghai",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/ElearningPlatform.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.24;\r\n\r\ninterface ICertificateNFT {\r\n    function safeMint(\r\n        address to,\r\n        string memory tokenURI_\r\n    ) external returns (uint256 tokenId);\r\n}\r\n\r\ncontract ElearningPlatform {\r\n    ICertificateNFT public certificateNFT;\r\n\r\n    struct Course {\r\n        uint256 id;\r\n        address instructor;\r\n        uint256 price;\r\n        string title;\r\n        string contentCid;\r\n    }\r\n\r\n    uint256 public nextCourseId = 1;\r\n\r\n    // Create a key (uint256) and value (Course) to track courses\r\n    mapping(uint256 => Course) public courses;\r\n\r\n    uint256[] public courseIds; \r\n\r\n    event CourseCreated(\r\n        uint256 indexed courseId,\r\n        address indexed instructor,\r\n        string title,\r\n        uint256 price,\r\n        string contentCid\r\n    );\r\n\r\n    // calldata means it can't not modify and don't copy into memory,\r\n    function createCourse(\r\n        string calldata title,\r\n        uint256 price,\r\n        string calldata contentCid\r\n    ) external returns (uint256 courseId) {\r\n        // courseId is a named return variable, means it's automatically initialized within the function's scope\r\n        require(bytes(title).length != 0, \"Title is required\");\r\n        require(bytes(contentCid).length != 0, \"CID required\");\r\n        courseId = nextCourseId++;\r\n        courses[courseId] = Course(\r\n            courseId,\r\n            msg.sender,\r\n            price,\r\n            title,\r\n            contentCid\r\n        );\r\n\r\n        courseIds.push(courseId);\r\n\r\n        emit CourseCreated(courseId, msg.sender, title, price, contentCid);\r\n    }\r\n\r\n    function getAllCourse() public view returns (Course[] memory) {\r\n        Course[] memory allCourses = new Course[](courseIds.length);\r\n        for (uint256 i = 0; i < courseIds.length; i++) {\r\n            allCourses[i] = courses[courseIds[i]];\r\n        }\r\n        return allCourses;\r\n    }\r\n\r\n    constructor(address certificateNFTAddress) {\r\n        require(certificateNFTAddress != address(0), \"Invalid NFT address\");\r\n        certificateNFT = ICertificateNFT(certificateNFTAddress);\r\n    }\r\n}"
+      }
+    }
+  }
+}
