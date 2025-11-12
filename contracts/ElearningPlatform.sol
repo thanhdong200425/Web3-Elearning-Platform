@@ -10,6 +10,7 @@ interface ICertificateNFT {
 
 contract ElearningPlatform {
     ICertificateNFT public certificateNFT;
+
     struct Course {
         uint256 id;
         address instructor;
@@ -23,7 +24,8 @@ contract ElearningPlatform {
     // Create a key (uint256) and value (Course) to track courses
     mapping(uint256 => Course) public courses;
 
-    // Create an event for course registration (an event is a log that can be listened to off-chain) to notify external systems (React app) when a new course is registered
+    uint256[] public courseIds; 
+
     event CourseCreated(
         uint256 indexed courseId,
         address indexed instructor,
@@ -49,8 +51,18 @@ contract ElearningPlatform {
             title,
             contentCid
         );
-        // msg.sender is a global variable that represents the address of the account that called this function
+
+        courseIds.push(courseId);
+
         emit CourseCreated(courseId, msg.sender, title, price, contentCid);
+    }
+
+    function getAllCourse() public view returns (Course[] memory) {
+        Course[] memory allCourses = new Course[](courseIds.length);
+        for (uint256 i = 0; i < courseIds.length; i++) {
+            allCourses[i] = courses[courseIds[i]];
+        }
+        return allCourses;
     }
 
     constructor(address certificateNFTAddress) {
