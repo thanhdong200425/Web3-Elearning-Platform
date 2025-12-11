@@ -27,6 +27,7 @@ contract ElearningPlatform {
 
     uint256 public nextCourseId = 1;
     mapping(uint256 => Course) public courses;
+    uint256[] public courseIds;
 
     // Mapping from student address => { courseId => purchased }
     mapping(address => mapping(uint256 => bool)) public purchases;
@@ -36,8 +37,6 @@ contract ElearningPlatform {
 
     // Mapping from student address => courseId => index in studentCourses array
     mapping(address => mapping(uint256 => uint256)) public studentCourseIndex;
-
-    uint256[] public courseIds;
 
     // Event to notify when a course is created
     event CourseCreated(
@@ -56,11 +55,18 @@ contract ElearningPlatform {
     );
 
     function getAllCourse() public view returns (Course[] memory) {
-        Course[] memory allCourses = new Course[](courseIds.length);
-        for (uint256 i = 0; i < courseIds.length; i++) {
+        uint256 courseIdLength = courseIds.length;
+        Course[] memory allCourses = new Course[](courseIdLength);
+        for (uint256 i = 0; i < courseIdLength; i++) {
             allCourses[i] = courses[courseIds[i]];
         }
         return allCourses;
+    }
+
+    function getCourseById(
+        uint256 courseId
+    ) public view returns (Course memory) {
+        return courses[courseId];
     }
 
     function createCourse(
@@ -78,6 +84,7 @@ contract ElearningPlatform {
             title: _title,
             contentCid: _contentCid
         });
+        // courseIds.push(courseId);
 
         emit CourseCreated(courseId, msg.sender, _title, _price, _contentCid);
 
