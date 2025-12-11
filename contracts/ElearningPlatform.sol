@@ -84,7 +84,7 @@ contract ElearningPlatform {
             title: _title,
             contentCid: _contentCid
         });
-        // courseIds.push(courseId);
+        courseIds.push(courseId);
 
         emit CourseCreated(courseId, msg.sender, _title, _price, _contentCid);
 
