@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
+import "hardhat/console.sol";
 
 interface ICertificateNFT {
     function safeMint(
@@ -85,6 +86,8 @@ contract ElearningPlatform {
             contentCid: _contentCid
         });
         courseIds.push(courseId);
+        console.log("Course created:", courseId);
+        console.log("Title:", _title);
 
         emit CourseCreated(courseId, msg.sender, _title, _price, _contentCid);
 
