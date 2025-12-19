@@ -88,6 +88,7 @@ contract ElearningPlatform {
         courseIds.push(courseId);
         console.log("Course created:", courseId);
         console.log("Title:", _title);
+        console.log("Content CID:", _contentCid);
 
         emit CourseCreated(courseId, msg.sender, _title, _price, _contentCid);
 
