@@ -22,11 +22,11 @@ const ElearningPlatformModule = buildModule("ElearningPlatformModule", (m) => {
   const elearningPlatform = m.contract("ElearningPlatform", [certificateNFT]);
 
   // Add some initial courses
-  m.call(elearningPlatform, "createCourse", [
-    "Blockchain Fundamentals",
-    ethers.parseEther("0"),
-    "QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A",
-  ]);
+  // m.call(elearningPlatform, "createCourse", [
+  //   "Blockchain Fundamentals",
+  //   ethers.parseEther("0"),
+  //   "QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A",
+  // ]);
 
   return { elearningPlatform };
 });
