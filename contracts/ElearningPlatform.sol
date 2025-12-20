@@ -183,4 +183,95 @@ contract ElearningPlatform {
         require(purchases[_student][_courseId], "Course not purchased");
         return courses[_courseId].contentCid;
     }
+
+    // ========== CERTIFICATE FUNCTIONALITY ==========
+
+    // Mapping from student address => courseId => tokenId (0 means no certificate)
+    mapping(address => mapping(uint256 => uint256)) public certificates;
+
+    // Counter for certificate token IDs
+    uint256 public nextCertificateTokenId = 1;
+
+    // Event when certificate is minted
+    event CertificateMinted(
+        address indexed student,
+        uint256 indexed courseId,
+        uint256 tokenId,
+        string tokenURI
+    );
+
+    /**
+     * @dev Claim certificate NFT after completing a course
+     * @param _courseId The ID of the completed course
+     * @param _tokenURI The IPFS URI for the certificate metadata
+     * @param _courseName Name of the course for certificate data
+     * @param _studentName Name of the student for certificate data
+     * @param _issueDate Date of certificate issuance
+     * @return tokenId The ID of the minted certificate NFT
+     */
+    function claimCertificate(
+        uint256 _courseId,
+        string calldata _tokenURI,
+        string calldata _courseName,
+        string calldata _studentName,
+        string calldata _issueDate
+    ) public returns (uint256 tokenId) {
+        // Validate course purchase
+        require(purchases[msg.sender][_courseId], "Course not purchased");
+
+        // Validate certificate not already claimed
+        require(
+            certificates[msg.sender][_courseId] == 0,
+            "Certificate already claimed"
+        );
+
+        // Note: Course completion is verified off-chain (frontend tracks progress)
+        // This is acceptable for MVP. Can add on-chain verification later if needed.
+
+        // Mint certificate NFT
+        tokenId = nextCertificateTokenId++;
+
+        // Call CertificateNFT contract to mint
+        certificateNFT.safeMint(
+            msg.sender,
+            tokenId,
+            _tokenURI,
+            _courseName,
+            _studentName,
+            _issueDate
+        );
+
+        // Track certificate
+        certificates[msg.sender][_courseId] = tokenId;
+
+        emit CertificateMinted(msg.sender, _courseId, tokenId, _tokenURI);
+
+        return tokenId;
+    }
+
+    /**
+     * @dev Get certificate token ID for a student and course
+     * @param _student Student address
+     * @param _courseId Course ID
+     * @return tokenId The certificate token ID (0 if not claimed)
+     */
+    function getCertificateTokenId(
+        address _student,
+        uint256 _courseId
+    ) public view returns (uint256) {
+        return certificates[_student][_courseId];
+    }
+
+    /**
+     * @dev Check if student has claimed certificate for a course
+     * @param _student Student address
+     * @param _courseId Course ID
+     * @return hasCertificate True if certificate has been claimed
+     */
+    function hasCertificate(
+        address _student,
+        uint256 _courseId
+    ) public view returns (bool) {
+        return certificates[_student][_courseId] != 0;
+    }
 }
