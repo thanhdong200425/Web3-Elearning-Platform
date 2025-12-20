@@ -1,5 +1,4 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
-import { ethers } from "ethers";
 
 // This module deploys the CertificateNFT contract
 const CertificateNFTModule = buildModule("CertificateNFTModule", (m) => {
@@ -21,14 +20,11 @@ const ElearningPlatformModule = buildModule("ElearningPlatformModule", (m) => {
   // Deploy ElearningPlatform, passing the NFT contract's address to its constructor
   const elearningPlatform = m.contract("ElearningPlatform", [certificateNFT]);
 
-  // Add some initial courses
-  // m.call(elearningPlatform, "createCourse", [
-  //   "Blockchain Fundamentals",
-  //   ethers.parseEther("0"),
-  //   "QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A",
-  // ]);
+  // Grant MINTER_ROLE to ElearningPlatform so it can mint certificates
+  const MINTER_ROLE = "0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6"; // keccak256("MINTER_ROLE")
+  m.call(certificateNFT, "grantRole", [MINTER_ROLE, elearningPlatform]);
 
-  return { elearningPlatform };
+  return { elearningPlatform, certificateNFT };
 });
 
 // Export the main module you want to deploy

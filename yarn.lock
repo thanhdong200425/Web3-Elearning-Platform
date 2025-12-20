@@ -506,22 +506,29 @@
     ethereum-cryptography "^2.2.1"
     ethers "^6.14.0"
 
-"@nomicfoundation/hardhat-ignition-viem@^3.0.0":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/hardhat-ignition-viem/-/hardhat-ignition-viem-3.0.3.tgz#ccb78c38224274f1c394416f6e89dbbf33e8e24d"
-  integrity sha512-kuWNxFmY6ZelJ4/dbv44QPhuJf38XvynNwGOmW7f96EJ/JnNZnN4D13Gkj9lxghynfWPg1yNHGv6CV1Y9DEDjw==
+"@nomicfoundation/hardhat-ignition-ethers@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@nomicfoundation/hardhat-ignition-ethers/-/hardhat-ignition-ethers-3.0.6.tgz#8f8e7b1c9f632153892d92df7a6a76eba1996617"
+  integrity sha512-khMIcrX3710uuYr1ejfadZU9bbWz+dgT3i8vXyG8v348j1QTg1445UUkIj86/AoolE/XwePW1bgNF0OmlxZj3g==
   dependencies:
     "@nomicfoundation/hardhat-errors" "^3.0.2"
 
-"@nomicfoundation/hardhat-ignition@^3.0.0":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/hardhat-ignition/-/hardhat-ignition-3.0.3.tgz#f9102948ba8e6aaec1b048bf3d768020bfcc058a"
-  integrity sha512-wFHgY+JAaIFPBxyJbrNJl7TjDmXtFod3nPDTPTMerPP+i69yk4yl3CM8nvjUzTKSACf7Ci3xfNfoqc3voeuaLQ==
+"@nomicfoundation/hardhat-ignition-viem@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@nomicfoundation/hardhat-ignition-viem/-/hardhat-ignition-viem-3.0.6.tgz#07e02074a968e37ad0fc9614af57e2bd520f9e23"
+  integrity sha512-5c3O1EytJ5IMoMfGK9Qf146oeYOOwYchDUMK32AU/9Dlal1fqgb0Y+ic/0QS/ijhpePj4wgVhmiDG1BHoP67/A==
   dependencies:
     "@nomicfoundation/hardhat-errors" "^3.0.2"
-    "@nomicfoundation/hardhat-utils" "^3.0.1"
-    "@nomicfoundation/ignition-core" "^3.0.3"
-    "@nomicfoundation/ignition-ui" "^3.0.3"
+
+"@nomicfoundation/hardhat-ignition@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@nomicfoundation/hardhat-ignition/-/hardhat-ignition-3.0.6.tgz#65b4626523c7f5d5487a31f56c57a4b305caa2bb"
+  integrity sha512-o5nkadpYS0LsYQzYO56pTvYngtXmB72FRTZcAMEHG+K9TMjI7EHPn4ecXmatJ5fbUSf/CplkqWxbKkOaVnfqXg==
+  dependencies:
+    "@nomicfoundation/hardhat-errors" "^3.0.2"
+    "@nomicfoundation/hardhat-utils" "^3.0.5"
+    "@nomicfoundation/ignition-core" "^3.0.6"
+    "@nomicfoundation/ignition-ui" "^3.0.6"
     chalk "^5.3.0"
     debug "^4.3.2"
     json5 "^2.2.3"
@@ -642,7 +649,7 @@
     "@nomicfoundation/hardhat-errors" "^3.0.0"
     "@nomicfoundation/hardhat-utils" "^3.0.2"
 
-"@nomicfoundation/ignition-core@^3.0.0", "@nomicfoundation/ignition-core@^3.0.3":
+"@nomicfoundation/ignition-core@^3.0.0":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@nomicfoundation/ignition-core/-/ignition-core-3.0.3.tgz#5ecb6f2409bc7735a196684d4c8a7430f944504c"
   integrity sha512-XlExOpCNyjLhAnfo/RaAknQ/0nYXl5+0+3Cg7T3zZAh/nEC52gecuhjG27jhIdtts2Oo78bwCsvnY2Wp0kHhpg==
@@ -658,10 +665,26 @@
     lodash-es "4.17.21"
     ndjson "2.0.0"
 
-"@nomicfoundation/ignition-ui@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ignition-ui/-/ignition-ui-3.0.3.tgz#44d51bef04c8c6749eae425e23141030d32f6259"
-  integrity sha512-9xpwKi68P4ckMucpNnoKlDei2A3wgbPAnJN8ouYxGZpPtzT0kTfDtRCPAQEGqPoQiOWAn84jojVYrJmL+RQS+A==
+"@nomicfoundation/ignition-core@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@nomicfoundation/ignition-core/-/ignition-core-3.0.6.tgz#9d1e7d7c97e2a6e2edfa915d857540cace9a4fc3"
+  integrity sha512-o5CTrlQ1PEQW85ppS7fxXCsSVl3j/T/3roTSA795lRJf7SQdJzr5y12rSTvoqR2YbeF5zDxVdqgzEqoMd8n6Cw==
+  dependencies:
+    "@ethersproject/address" "5.6.1"
+    "@nomicfoundation/hardhat-errors" "^3.0.2"
+    "@nomicfoundation/hardhat-utils" "^3.0.5"
+    "@nomicfoundation/solidity-analyzer" "^0.1.1"
+    cbor2 "^1.9.0"
+    debug "^4.3.2"
+    ethers "^6.14.0"
+    immer "10.0.2"
+    lodash-es "4.17.21"
+    ndjson "2.0.0"
+
+"@nomicfoundation/ignition-ui@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@nomicfoundation/ignition-ui/-/ignition-ui-3.0.6.tgz#4fe7070bd53d185925249e6da3487bdbbd94eb33"
+  integrity sha512-PePoQO4LwLfQyMGZOtbF5eOgYSu/kXCyif/0Jpto1dfFLAtvoUbvaLrecrclM/keCTriRADOauH/zH06ihzvCg==
 
 "@nomicfoundation/solidity-analyzer-darwin-arm64@0.1.2":
   version "0.1.2"
@@ -901,6 +924,11 @@ diff-sequences@^29.6.3:
   version "29.6.3"
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-29.6.3.tgz#4deaf894d11407c51efc8418012f9e70b84ea921"
   integrity sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==
+
+dotenv@^17.2.3:
+  version "17.2.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-17.2.3.tgz#ad995d6997f639b11065f419a22fabf567cdb9a2"
+  integrity sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==
 
 elliptic@6.6.1:
   version "6.6.1"

@@ -1,10 +1,11 @@
 import type { HardhatUserConfig } from "hardhat/config";
 import { configVariable } from "hardhat/config";
-import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
-import hardhatEthers from "@nomicfoundation/hardhat-ethers";
+import "@nomicfoundation/hardhat-toolbox-viem";
+import "@nomicfoundation/hardhat-ethers";
+import HardhatIgnitionEthersPlugin from "@nomicfoundation/hardhat-ignition-ethers";
 
 const config: HardhatUserConfig = {
-  plugins: [hardhatToolboxViemPlugin, hardhatEthers],
+  plugins: [HardhatIgnitionEthersPlugin],
   solidity: {
     profiles: {
       default: {
@@ -42,7 +43,7 @@ const config: HardhatUserConfig = {
       chainId: 31337,
       url: "http://127.0.0.1:8545",
       accounts: [
-        "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+        "0xea6c44ac03bff858b476bba40716402b03e41b8e97e276d1baec7c37d42484a0",
       ],
     },
   },
