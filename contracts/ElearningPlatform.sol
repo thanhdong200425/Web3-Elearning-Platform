@@ -48,6 +48,14 @@ contract ElearningPlatform {
         string contentCid
     );
 
+     event CourseUpdated(
+        uint256 indexed courseId,
+        address indexed instructor,
+        string title,
+        uint256 price,
+        string contentCid
+    );
+
     // Event to notify when a course is purchased
     event CoursePurchased(
         address indexed student,
@@ -93,6 +101,26 @@ contract ElearningPlatform {
         emit CourseCreated(courseId, msg.sender, _title, _price, _contentCid);
 
         return courseId;
+    }
+
+      // NEW: update existing course (only instructor)
+    function updateCourse(
+        uint256 _courseId,
+        string calldata _title,
+        uint256 _price,
+        string calldata _contentCid
+    ) external {
+        Course storage course = courses[_courseId];
+        require(course.id != 0, "Course does not exist");
+        require(course.instructor == msg.sender, "Not course instructor");
+        require(bytes(_title).length != 0, "Title is required");
+        require(bytes(_contentCid).length != 0, "Content CID is required");
+
+        course.title = _title;
+        course.price = _price;
+        course.contentCid = _contentCid;
+
+        emit CourseUpdated(_courseId, msg.sender, _title, _price, _contentCid);
     }
 
     function purchaseCourse(uint256 _courseId) public payable {
@@ -151,4 +179,5 @@ contract ElearningPlatform {
         require(purchases[_student][_courseId], "Course not purchased");
         return courses[_courseId].contentCid;
     }
+
 }
