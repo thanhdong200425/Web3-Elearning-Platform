@@ -5,8 +5,12 @@ import "hardhat/console.sol";
 interface ICertificateNFT {
     function safeMint(
         address to,
-        string memory tokenURI_
-    ) external returns (uint256 tokenId);
+        uint256 tokenId,
+        string memory uri,
+        string memory course,
+        string memory student,
+        string memory date
+    ) external;
 }
 
 contract ElearningPlatform {
@@ -48,7 +52,7 @@ contract ElearningPlatform {
         string contentCid
     );
 
-     event CourseUpdated(
+    event CourseUpdated(
         uint256 indexed courseId,
         address indexed instructor,
         string title,
@@ -103,7 +107,7 @@ contract ElearningPlatform {
         return courseId;
     }
 
-      // NEW: update existing course (only instructor)
+    // NEW: update existing course (only instructor)
     function updateCourse(
         uint256 _courseId,
         string calldata _title,
@@ -179,5 +183,4 @@ contract ElearningPlatform {
         require(purchases[_student][_courseId], "Course not purchased");
         return courses[_courseId].contentCid;
     }
-
 }
